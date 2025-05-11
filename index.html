@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasa Malaysia Bakery - Authentic Malaysian Delights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff9f0;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-item-enter {
+            animation: slideIn 0.3s forwards;
+        }
+        
+        .cart-item-exit {
+            animation: slideOut 0.3s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-amber-900 text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-bread-slice text-2xl"></i>
+                <span class="text-xl font-bold">Rasa Malaysia</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-amber-200 transition">Home</a>
+                <a href="#about" class="hover:text-amber-200 transition">About</a>
+                <a href="#menu" class="hover:text-amber-200 transition">Menu</a>
+                <a href="#promotions" class="hover:text-amber-200 transition">Promotions</a>
+                <a href="#contact" class="hover:text-amber-200 transition">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="cart-btn" class="relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-amber-800 px-4 py-2">
+            <div class="flex flex-col space-y-3">
+                <a href="#home" class="hover:text-amber-200 transition">Home</a>
+                <a href="#about" class="hover:text-amber-200 transition">About</a>
+                <a href="#menu" class="hover:text-amber-200 transition">Menu</a>
+                <a href="#promotions" class="hover:text-amber-200 transition">Promotions</a>
+                <a href="#contact" class="hover:text-amber-200 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Authentic Malaysian Bakery</h1>
+            <p class="text-xl md:text-2xl mb-8">Traditional flavors with a modern twist</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition transform hover:scale-105">View Menu</a>
+                <a href="#promotions" class="bg-white hover:bg-gray-100 text-amber-900 px-8 py-3 rounded-full font-semibold transition transform hover:scale-105">Today's Specials</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">Our Story</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bakery kitchen" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold text-amber-800 mb-4">Bringing Malaysian Heritage to Your Table</h3>
+                    <p class="text-gray-700 mb-4">Founded in 2010, Rasa Malaysia Bakery began as a small family business in Kuala Lumpur with a passion for preserving traditional Malaysian baking techniques while innovating with modern flavors.</p>
+                    <p class="text-gray-700 mb-6">Our master bakers combine generations-old recipes with the finest local ingredients to create authentic Malaysian pastries, cakes, and breads that tell the story of our rich culinary heritage.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-award text-amber-600 mr-2"></i>
+                            <span>Halal Certified</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-leaf text-amber-600 mr-2"></i>
+                            <span>Locally Sourced</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-heart text-amber-600 mr-2"></i>
+                            <span>Family Recipes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">Our Menu</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-700 mt-4 max-w-2xl mx-auto">Explore our selection of authentic Malaysian baked goods, perfect for any occasion.</p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="category-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-amber-600 text-white" data-category="all">All Items</button>
+                    <button type="button" class="category-btn px-4 py-2 text-sm font-medium bg-white text-amber-900" data-category="bread">Breads</button>
+                    <button type="button" class="category-btn px-4 py-2 text-sm font-medium bg-white text-amber-900" data-category="cake">Cakes</button>
+                    <button type="button" class="category-btn px-4 py-2 text-sm font-medium bg-white text-amber-900" data-category="pastry">Pastries</button>
+                    <button type="button" class="category-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-amber-900" data-category="dessert">Desserts</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-items">
+                <!-- Menu items will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotions Section -->
+    <section id="promotions" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">Today's Specials</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-700 mt-4 max-w-2xl mx-auto">Enjoy these limited-time offers on our most popular items.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-amber-100 rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Kaya Toast Set" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">30% OFF</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Kaya Toast Set</h3>
+                        <p class="text-gray-700 mb-4">Traditional Malaysian breakfast set with kaya (coconut jam) toast, soft-boiled eggs, and local coffee.</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-500 line-through mr-2">RM12.90</span>
+                                <span class="text-xl font-bold text-amber-800">RM9.90</span>
+                            </div>
+                            <button class="add-to-cart-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition" data-id="promo1" data-name="Kaya Toast Set" data-price="9.90" data-img="https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                <i class="fas fa-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-amber-100 rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Durian Crepe Cake" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">BUY 1 FREE 1</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Durian Crepe Cake</h3>
+                        <p class="text-gray-700 mb-4">Layers of delicate crepes with rich durian cream filling - Malaysia's king of fruits in dessert form.</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xl font-bold text-amber-800">RM25.90</span>
+                                <span class="text-sm text-gray-600 ml-1">(2 pcs)</span>
+                            </div>
+                            <button class="add-to-cart-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition" data-id="promo2" data-name="Durian Crepe Cake" data-price="25.90" data-img="https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80">
+                                <i class="fas fa-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-amber-100 rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1603532648958-00560a3a6a0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Afternoon Tea Set" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">COMBO DEAL</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Nyonya Afternoon Tea Set</h3>
+                        <p class="text-gray-700 mb-4">A selection of Nyonya kuih, pandan cake, and traditional Malaysian tea for the perfect tea time.</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-500 line-through mr-2">RM38.90</span>
+                                <span class="text-xl font-bold text-amber-800">RM29.90</span>
+                            </div>
+                            <button class="add-to-cart-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition" data-id="promo3" data-name="Nyonya Afternoon Tea Set" data-price="29.90" data-img="https://images.unsplash.com/photo-1603532648958-00560a3a6a0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+                                <i class="fas fa-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-amber-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">What Our Customers Say</h2>
+                <div class="w-20 h-1 bg-amber-200 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-amber-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Aisha Rahman</h4>
+                            <div class="flex text-amber-200">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"The kaya toast brings back memories of my childhood in Penang. The perfect balance of sweet and savory!"</p>
+                </div>
+                
+                <div class="bg-amber-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Lim Wei Jie</h4>
+                            <div class="flex text-amber-200">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"As a durian lover, their durian crepe cake is the best I've had outside of Malaysia. Authentic Musang King flavor!"</p>
+                </div>
+                
+                <div class="bg-amber-700 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <div class="flex text-amber-200">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"I ordered the Nyonya kuih set for my mother's birthday and she was overjoyed. The colors and flavors are amazing!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Delivery -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">Order & Delivery</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-700 mt-4 max-w-2xl mx-auto">We deliver fresh Malaysian baked goods right to your doorstep.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <div class="bg-amber-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-amber-800 mb-4">Delivery Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-truck text-amber-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Delivery Areas</h4>
+                                    <p class="text-gray-700">We deliver to all areas within Kuala Lumpur, Petaling Jaya, and Subang Jaya.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-amber-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Delivery Hours</h4>
+                                    <p class="text-gray-700">Daily from 8:00 AM to 8:00 PM. Orders placed before 5:00 PM will be delivered the same day.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-money-bill-wave text-amber-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Delivery Fees</h4>
+                                    <p class="text-gray-700">RM5 for orders below RM50. Free delivery for orders RM50 and above.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-amber-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-amber-800 mb-4">Visit Our Bakery</h3>
+                        <div class="flex items-start mb-4">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="text-gray-700">No. 28, Jalan SS2/75, 47300 Petaling Jaya, Selangor</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start mb-4">
+                            <i class="fas fa-phone text-amber-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="text-gray-700">+603-1234 5678</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-amber-600 mt-1 mr-3"></i>
+                            <div>
+                                <p class="text-gray-700">hello@rasamalaysiabakery.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-amber-50 p-6 rounded-lg shadow-md h-full">
+                        <h3 class="text-xl font-bold text-amber-800 mb-4">Order Online</h3>
+                        <form id="delivery-form" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                            </div>
+                            <div>
+                                <label for="address" class="block text-gray-700 mb-1">Delivery Address</label>
+                                <textarea id="address" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required></textarea>
+                            </div>
+                            <div>
+                                <label for="date" class="block text-gray-700 mb-1">Delivery Date</label>
+                                <input type="date" id="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" required>
+                            </div>
+                            <div>
+                                <label for="notes" class="block text-gray-700 mb-1">Special Instructions</label>
+                                <textarea id="notes" rows="2" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 px-6 rounded-lg font-semibold transition">
+                                Proceed to Checkout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-amber-900">Your Order</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="space-y-4 mb-6">
+                <!-- Cart items will be dynamically inserted here -->
+                <div class="text-center py-8 text-gray-500" id="empty-cart-message">
+                    <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-4 mb-6">
+                <div class="flex justify-between mb-2">
+                    <span class="font-semibold">Subtotal:</span>
+                    <span id="cart-subtotal">RM0.00</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="font-semibold">Delivery Fee:</span>
+                    <span id="delivery-fee">RM5.00</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total">RM5.00</span>
+                </div>
+            </div>
+            
+            <button id="checkout-btn" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 px-6 rounded-lg font-semibold transition mb-4 disabled:opacity-50" disabled>
+                Proceed to Checkout
+            </button>
+            
+            <div class="text-center text-sm text-gray-500">
+                <p>Continue shopping to add more items</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for cart sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Rasa Malaysia</h3>
+                    <p class="mb-4">Preserving Malaysian baking traditions while innovating for modern tastes.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-amber-200"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-amber-200"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-amber-200"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-amber-200"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-amber-200">Home</a></li>
+                        <li><a href="#about" class="hover:text-amber-200">About Us</a></li>
+                        <li><a href="#menu" class="hover:text-amber-200">Menu</a></li>
+                        <li><a href="#promotions" class="hover:text-amber-200">Promotions</a></li>
+                        <li><a href="#contact" class="hover:text-amber-200">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Opening Hours</h4>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between">
+                            <span>Monday - Friday</span>
+                            <span>8:00 AM - 9:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Saturday</span>
+                            <span>8:00 AM - 10:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sunday</span>
+                            <span>8:00 AM - 8:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="mb-4">Subscribe to get updates on new products and special offers.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-900 w-full">
+                        <button type="submit" class="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2023 Rasa Malaysia Bakery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Order Placed Successfully!</h3>
+                <p class="text-gray-700 mb-6">Thank you for your order. We'll prepare your Malaysian delights and deliver them to you soon.</p>
+                <button id="close-modal" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg font-medium">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Data
+        const menuItems = [
+            {
+                id: 1,
+                name: "Kaya Toast Set",
+                description: "Traditional Malaysian breakfast with kaya (coconut jam) toast, soft-boiled eggs, and local coffee.",
+                price: 12.90,
+                category: "bread",
+                image: "https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                id: 2,
+                name: "Pandan Chiffon Cake",
+                description: "Light and fluffy cake infused with fragrant pandan leaves, a Malaysian favorite.",
+                price: 28.90,
+                category: "cake",
+                image: "https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+            },
+            {
+                id: 3,
+                name: "Durian Crepe Cake",
+                description: "Layers of delicate crepes with rich durian cream filling - Malaysia's king of fruits in dessert form.",
+                price: 32.90,
+                category: "cake",
+                image: "https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+            },
+            {
+                id: 4,
+                name: "Nyonya Kuih Set",
+                description: "Assortment of colorful Nyonya kuih (bite-sized snacks) with coconut, pandan, and gula melaka flavors.",
+                price: 22.90,
+                category: "pastry",
+                image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                id: 5,
+                name: "Roti Canai",
+                description: "Flaky, crispy Malaysian flatbread served with dhal curry and sambal for dipping.",
+                price: 8.90,
+                category: "bread",
+                image: "https://images.unsplash.com/photo-1633944099793-70d0a7a2e8d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                id: 6,
+                name: "Apam Balik",
+                description: "Sweet Malaysian pancake with peanut and corn filling, crispy on the outside and soft inside.",
+                price: 7.90,
+                category: "dessert",
+                image: "https://images.unsplash.com/photo-1551504739-ee3a8f8a5e8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                id: 7,
+                name: "Cempedak Cake",
+                description: "Moist cake made with cempedak fruit, similar to jackfruit but with a richer, more complex flavor.",
+                price: 34.90,
+                category: "cake",
+                image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1389&q=80"
+            },
+            {
+                id: 8,
+                name: "Onde-Onde",
+                description: "Sweet glutinous rice balls filled with liquid gula melaka (palm sugar) and coated with grated coconut.",
+                price: 14.90,
+                category: "dessert",
+                image: "https://images.unsplash.com/photo-1603532648958-00560a3a6a0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+            },
+            {
+                id: 9,
+                name: "Seri Muka",
+                description: "Two-layered dessert with glutinous rice base and green pandan custard topping.",
+                price: 18.90,
+                category: "dessert",
+                image: "https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+            }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+
+        // DOM Elements
+        const menuItemsContainer = document.getElementById('menu-items');
+        const cartBtn = document.getElementById('cart-btn');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCartBtn = document.getElementById('close-cart');
+        const overlay = document.getElementById('overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+        const deliveryFee = document.getElementById('delivery-fee');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const orderModal = document.getElementById('order-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const deliveryForm = document.getElementById('delivery-form');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenuItems(menuItems);
+            updateCartCount();
+            updateCartSummary();
+            
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+
+        // Render menu items
+        function renderMenuItems(items) {
+            menuItemsContainer.innerHTML = '';
+            
+            items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item bg-white rounded-lg overflow-hidden shadow-md transition duration-300';
+                menuItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">${item.name}</h3>
+                        <p class="text-gray-700 mb-4">${item.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-amber-800">RM${item.price.toFixed(2)}</span>
+                            <button class="add-to-cart-btn bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full transition" 
+                                    data-id="${item.id}" 
+                                    data-name="${item.name}" 
+                                    data-price="${item.price}" 
+                                    data-img="${item.image}">
+                                <i class="fas fa-plus mr-1"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItem);
+            });
+            
+            // Add event listeners to all add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+        }
+
+        // Filter menu by category
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button styling
+                categoryBtns.forEach(b => {
+                    b.classList.remove('bg-amber-600', 'text-white');
+                    b.classList.add('bg-white', 'text-amber-900');
+                });
+                btn.classList.remove('bg-white', 'text-amber-900');
+                btn.classList.add('bg-amber-600', 'text-white');
+                
+                const category = btn.dataset.category;
+                if (category === 'all') {
+                    renderMenuItems(menuItems);
+                } else {
+                    const filteredItems = menuItems.filter(item => item.category === category);
+                    renderMenuItems(filteredItems);
+                }
+            });
+        });
+
+        // Add item to cart
+        function addToCart(e) {
+            const btn = e.currentTarget;
+            const id = parseInt(btn.dataset.id);
+            const name = btn.dataset.name;
+            const price = parseFloat(btn.dataset.price);
+            const img = btn.dataset.img;
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    img,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            updateCartSummary();
+            
+            // Show cart sidebar if it's hidden
+            if (cartSidebar.classList.contains('translate-x-full')) {
+                cartSidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+            
+            // Render cart items
+            renderCartItems();
+            
+            // Pulse animation for cart button
+            cartBtn.classList.add('pulse');
+            setTimeout(() => {
+                cartBtn.classList.remove('pulse');
+            }, 2000);
+        }
+
+        // Update cart count in navbar
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = count;
+        }
+
+        // Update cart summary (subtotal, delivery fee, total)
+        function updateCartSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const fee = subtotal >= 50 ? 0 : 5;
+            const total = subtotal + fee;
+            
+            cartSubtotal.textContent = `RM${subtotal.toFixed(2)}`;
+            deliveryFee.textContent = `RM${fee.toFixed(2)}`;
+            cartTotal.textContent = `RM${total.toFixed(2)}`;
+            
+            // Enable/disable checkout button based on cart items
+            checkoutBtn.disabled = cart.length === 0;
+        }
+
+        // Render cart items in sidebar
+        function renderCartItems() {
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartItemsContainer.innerHTML = '';
+                return;
+            }
+            
+            emptyCartMessage.classList.add('hidden');
+            cartItemsContainer.innerHTML = '';
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item-enter bg-white p-4 rounded-lg shadow-sm flex items-center';
+                cartItem.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded mr-4">
+                    <div class="flex-grow">
+                        <h4 class="font-semibold text-gray-900">${item.name}</h4>
+                        <p class="text-amber-700 font-medium">RM${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="decrease-quantity text-gray-500 hover:text-amber-600 px-2" data-id="${item.id}">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="increase-quantity text-gray-500 hover:text-amber-600 px-2" data-id="${item.id}">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button class="remove-item text-red-500 hover:text-red-700 ml-4" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.increase-quantity').forEach(btn => {
+                btn.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(btn => {
+                btn.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', removeItem);
+            });
+        }
+
+        // Increase item quantity
+        function increaseQuantity(e) {
+            const id = parseInt(e.currentTarget.dataset.id);
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += 1;
+                updateCartCount();
+                updateCartSummary();
+                renderCartItems();
+            }
+        }
+
+        // Decrease item quantity
+        function decreaseQuantity(e) {
+            const id = parseInt(e.currentTarget.dataset.id);
+            const item = cart.find(item => item.id === id);
+            
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                updateCartCount();
+                updateCartSummary();
+                renderCartItems();
+            } else if (item && item.quantity === 1) {
+                removeItem(e);
+            }
+        }
+
+        // Remove item from cart
+        function removeItem(e) {
+            const id = parseInt(e.currentTarget.dataset.id);
+            cart = cart.filter(item => item.id !== id);
+            
+            updateCartCount();
+            updateCartSummary();
+            renderCartItems();
+        }
+
+        // Toggle cart sidebar
+        cartBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('translate-x-full');
+            overlay.classList.remove('hidden');
+            renderCartItems();
+        });
+
+        closeCartBtn.addEventListener('click', () => {
+            cartSidebar.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            cartSidebar.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+        });
+
+        // Handle checkout
+        checkoutBtn.addEventListener('click', () => {
+            // In a real app, this would process payment and send order to server
+            // For demo, we'll just show a success message
+            cartSidebar.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+            orderModal.classList.remove('hidden');
+            
+            // Clear cart after checkout
+            cart = [];
+            updateCartCount();
+            updateCartSummary();
+            renderCartItems();
+        });
+
+        // Close order confirmation modal
+        closeModalBtn.addEventListener('click', () => {
+            orderModal.classList.add('hidden');
+        });
+
+        // Handle delivery form submission
+        deliveryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real app, this would send the delivery info to the server
+            // For demo, we'll just show a success message
+            orderModal.classList.remove('hidden');
+            
+            // Reset form
+            deliveryForm.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
